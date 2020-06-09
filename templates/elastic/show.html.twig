@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Elastic show
+{% endblock %}
+
+{% block body %}
+	<h1>{{ personnalite['nom']|upper }}
+		{{ personnalite['prenom']|capitalize }}</h1>
+
+	<ul>
+		{% for categorie in personnalite['categorie']|split(',') %}
+			<li>{{ categorie }}</li>
+		{% endfor %}
+	</ul>
+
+	<p>{{ personnalite['presentation'] }}</p>
+{% endblock %}

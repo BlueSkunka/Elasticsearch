@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}
+	Elastic index
+{% endblock %}
+
+{% block body %}
+	<div class="search-results">
+		<h1>Liste des personnalités</h1>
+
+		<table class="table table-stripped table-bordered">
+
+			<thead class="thead-dark">
+				<tr>
+					<th>Nom</th>
+					<th>Prénom</th>
+					<th>Catégories</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				{% for personnalite in personnalites %}
+					{% set source = personnalite["_source"] %}
+					{% set id = personnalite['_id'] %}
+					<tr>
+						<td>{{ source['nom'] }}</td>
+						<td>{{ source['prenom'] }}</td>
+						<td>{{ source['categorie'] }}</td>
+						<td>
+							<a href="{{ path('elastic_show', {'id': id}) }}">
+								<button class="btn btn-sm btn-info">Détails</button>
+							</a>
+
+							<a href="{{ path('elastic_edit', {'id': id}) }}">
+								<button class="btn btn-sm btn-warning">Modifier</button>
+							</a>
+
+							<a href="{{ path('elastic_delete', {'id': id}) }}">
+								<button class="btn btn-sm btn-danger">Supprimer</button>
+							</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+	</div>
+
+	<div class="search-filter">
+		<h2>Recherche</h2>
+		{{ form(form) }}
+		</div>
+	{% endblock %}

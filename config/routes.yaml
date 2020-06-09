@@ -1,3 +1,23 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+elastic_index:
+  path: /elastic
+  controller: App\Controller\ElasticController::index
+
+elastic_new:
+  path: /elastic/new
+  controller: App\Controller\ElasticController::new
+
+elastic_show:
+  path: /elastic/show-{id}
+  controller: App\Controller\ElasticController::show
+
+elastic_edit:
+  path: /elastic/edit-{id}
+  controller: App\Controller\ElasticController::edit
+
+elastic_delete:
+  path: /elastic/delete-{id}
+  controller: App\Controller\ElasticController::delete
+
+elastic_infos:
+  path: /elastic/info
+  controller: App\Controller\ElasticController::info

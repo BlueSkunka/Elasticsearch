@@ -50,4 +50,19 @@ class ElasticService {
         else
             return false;
     }
+
+    public function generateUpdateParams($datas, $id) {
+        return $params = [
+            'index' => 'personnalite',
+            'id' => $id,
+            'body' => [
+                'doc' => [
+                    'nom' => (is_null($datas['nom']) ? "" : $datas['nom']),
+                    'prenom' => (is_null($datas['prenom']) ? "" : $datas['prenom']),
+                    'presentation' => (is_null($datas['presentation']) ? "" : $datas['presentation']),
+                    'categorie' => (is_null($datas['categorie']) ? "" : $datas['categorie'])
+                ]
+            ]
+        ];
+    }
 }

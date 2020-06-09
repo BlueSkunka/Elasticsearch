@@ -43,6 +43,16 @@
 							</a>
 						</td>
 					</tr>
+				{% else %}
+					<tr>
+						<td colspan="3" style="background-color: #ff9999">Aucune personnalités n'est enregistré ou ne correspond à vos critères de recherche....</td>
+						<td>
+							<a href="{{ path('elastic_new') }}">
+								<button class="btn btn-sm btn-secondary">Nouveau</button>
+							</a>
+						</td>
+					</tr>
+
 				{% endfor %}
 			</tbody>
 		</table>

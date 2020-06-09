@@ -77,10 +77,34 @@ class ElasticController extends AbstractController
         ]);
     }
 
-    public function edit()
+    public function edit(Request $request, ElasticService $elasticService, $id)
     {
-        return $this->render('elastic/index.html.twig', [
-            'controller_name' => 'ElasticController',
+        $client = ClientBuilder::create()->build();
+
+        $params = [
+            'index' => 'personnalite',
+            'id' => $id
+        ];
+
+        $response = $client->get($params);
+        $datas = $response['_source'];
+
+        $form = $this->createForm(ElasticType::class);
+
+        $form->setData($datas);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $params = $elasticService->generateUpdateParams($form->getData(), $response['_id']);
+
+            $client->update($params);
+
+            return $this->redirect($this->generateUrl('elastic_show', ['id' => $response['_id']]));
+        }
+
+        return $this->render('elastic/edit.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 

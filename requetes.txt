@@ -1,0 +1,116 @@
+
+PUT personalite
+{
+    "mappings" : {
+          "properties" : {
+              "nom" : { "type" : "text" },
+              "prenom" : {"type" : "text"},
+              "presentation":{"type" : "text"},
+              "description" : {"type" : "text"}
+        }
+    }
+}
+
+POST personalite/_doc
+{
+  "nom": "Dolicool",
+  "prenom": "Tomcool",
+  "presentation": "Il est plutot sympa cool",
+  "description": "Informaticien cool"
+}
+
+POST /personalite/_bulk
+{"create": {"_id": "1" }} 
+{ "nom": "Dolicool", "prenom": "Tomcool", "presentation": "Il est plutot sympa cool", "description": "Informaticien cool" }
+{"create": {"_id": "2" }} 
+{ "nom": "Sommeveille","prenom": "Quentin","presentation": "Il est plutot bo","description": "Informaticien"}
+{"create": {"_id": "3" }} 
+{ "nom": "Ponchant","prenom": "Rémi","presentation": "Très pédagogue","description": "Enseignant"}
+{"create": {"_id": "4" }} 
+{ "nom": "Thomine","prenom": "Lou","presentation": "Très compétente dans son domaine","description": "Philosophe"}
+{"create": {"_id": "5" }} 
+{ "nom": "Martin","prenom": "Phillipe","presentation": "Un très bon professeur","description": "Enseignant"}
+
+PUT /personalite/_doc/jAJCyHIB-DnGj3iD_A3b
+{
+          "nom" : "Dolicool",
+          "prenom" : "Tomcool",
+          "presentation" : "plutot sympa cool",
+          "description" : "Informaticien cool"
+}
+
+GET /personalite/_doc/1
+
+GET /personalite/_doc/1/_source
+
+DELETE /personalite/_doc/eiWPx3IBeFUUh06Ge2a2
+
+GET personalite/_search/
+
+GET /personalite/_search/
+{
+  "query": {
+    "match": {
+      "presentation": "professeurs cool"
+    }
+  }
+}
+
+GET /personalite/_search/
+{
+    "query": {
+        "fuzzy": {
+            "presentation": {
+                "value": "bo",
+                "fuzziness": 10,
+                "max_expansions": 100,
+                "prefix_length": 1,
+                "transpositions": false,
+                "rewrite": "constant_score"
+            }
+        }
+    }
+}
+
+GET /personalite/_search/
+{
+  "query": {
+    "query_string": {
+      "query": "(cool) OR (et) OR (beau)",
+       "default_field": "description"
+    }
+  }
+}
+
+GET /personalite/_search/
+{
+	"query": {
+		"multi_match": {
+			"query": "cool",
+			"fields": ["nom", "prenom", "presentation", "description"]
+		}
+	}
+}
+
+GET personalite/_search
+{
+    "query": {
+        "regexp": {
+            "nom": {
+                "value": "d.*"
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
